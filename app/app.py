@@ -29,5 +29,5 @@ def home():
     cantidadUsuarios = User.objects.filter(email='matt@nobien.net').count()
     return render_template('index.jinja2', Usuarios = User, param2 = cantidadUsuarios)
 
-if __name__ == '__main__':
-    app.run()
+# if __name__ == '__main__':
+#     app.run()
