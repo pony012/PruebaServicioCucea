@@ -1,0 +1,22 @@
+{
+  "name": "Flask-mongoengine",
+  "authors": [
+    "Alan <pony_alanandres@hotmail.com>"
+  ],
+  "description": "Example of Flask with MongoEngine and Flask-Security for authentification. For js dependencies we are going to use Bower",
+  "main": "app.py",
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "moment": "^2.15.1"
+  }
+}

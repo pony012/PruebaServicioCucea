@@ -1,0 +1,5 @@
+Flask
+Flask-Admin
+Flask-MongoEngine
+Flask-Login>=0.3.0
+flask-security>=1.7.5
