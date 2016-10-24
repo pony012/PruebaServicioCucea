@@ -14,7 +14,7 @@ app = config.app
 def create_user():
     print User
     if( User.objects.filter(email='matt@nobien.net').count() == 0 ):
-        user_datastore.create_user(email='matt@nobien.net', password='password')
+        security.user_datastore.create_user(email='matt@nobien.net', password='password')
 
 @app.template_filter('exception')
 def my_exception_filter(value):
