@@ -1,5 +1,6 @@
 Flask
+flask-security==1.7.5
+Flask-Login==0.3.2
 Flask-Admin
 Flask-MongoEngine
-Flask-Login>=0.3.0
-flask-security>=1.7.5
+cf-deployment-tracker==1.0.2
