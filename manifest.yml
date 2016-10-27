@@ -1,7 +1,7 @@
 ---
 applications:
-- name: hello-world-flask
-  host: hello-world-flask-${random-word}
+- name: PruebaServicioCucea
+  host: PruebaServicioCucea-${random-word}
   memory: 128M
   instances: 1
   path: .

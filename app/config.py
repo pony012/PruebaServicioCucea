@@ -9,9 +9,18 @@ app.config['DEBUG'] = True
 app.config['SECRET_KEY'] = '123456789'
 
 # MongoDB Config
-app.config['MONGODB_DB'] = 'prueba'
-app.config['MONGODB_HOST'] = 'localhost'
-app.config['MONGODB_PORT'] = 27017
+if 'VCAP_SERVICES' in os.environ:
+    mongodbService = json.loads(os.environ['VCAP_SERVICES'])['mongodb'][0]
+    mongodbCred = mongodbService['credentials']
+    app.config['MONGODB_DB'] = 'prueba'
+    app.config['MONGODB_HOST'] = mongodbCred['host']
+    app.config['MONGODB_PORT'] = int(mongodbCred['port'])
+    app.config['MONGODB_USERNAME'] = mongodbCred['username']
+    app.config['MONGODB_PASSWORD'] = mongodbCred['password']
+else:
+    app.config['MONGODB_DB'] = 'prueba'
+    app.config['MONGODB_HOST'] = 'localhost'
+    app.config['MONGODB_PORT'] = 27017
 
 app.config['SECURITY_TRACKABLE'] = True
 

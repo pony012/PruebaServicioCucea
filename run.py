@@ -10,5 +10,7 @@ port = int(os.getenv('VCAP_APP_PORT', 8080))
 
 host = str(os.getenv('VCAP_APP_HOST', "127.0.0.1"))
 
+debug = True if port == 8080 else False
+
 if __name__ == "__main__":
-    app.run(debug=True, host = host, port = port)
+    app.run(debug = debug, host = host, port = port)
