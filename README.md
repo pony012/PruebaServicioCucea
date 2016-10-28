@@ -1,2 +1,0 @@
-# PruebaServicioCucea
-Proyecto de prueba.

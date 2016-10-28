@@ -1,9 +1,8 @@
 from flask import Flask, render_template
 from flask_mongoengine import MongoEngine
-from flask_security import Security, MongoEngineUserDatastore, \
-     login_required
+from flask_security import login_required
 import config
-import security
+import db
 from models.User import User
 from models.Role import Role
 
@@ -13,21 +12,17 @@ app = config.app
 @app.before_first_request
 def create_user():
     print User
+    print str(app.config)
     if( User.objects.filter(email='matt@nobien.net').count() == 0 ):
-        security.user_datastore.create_user(email='matt@nobien.net', password='password')
+        db.security.datastore.create_user(email='matt@nobien.net', password='password')
 
-@app.template_filter('exception')
-def my_exception_filter(value):
-    try:
-        return value
-    except:
-        return 'E:'
 # Views
 @app.route('/')
 @login_required
 def home():
     cantidadUsuarios = User.objects.filter(email='matt@nobien.net').count()
-    return render_template('index.jinja2', Usuarios = User, param2 = cantidadUsuarios)
+    print str(app.config)
+    return render_template('index.jinja2', param1 = str(app.config) )
 
-# if __name__ == '__main__':
-#     app.run()
+if __name__ == '__main__':
+    app.run()

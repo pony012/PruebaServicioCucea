@@ -2,11 +2,6 @@
 {% block content %}
   Hello from index
   <div class="well">
-    Param2 = {{param2}}
+    Hello world from Flask {{ param1 }}
   </div>
-  <ul>
-    {%- for user in Usuarios.objects: %}
-      <li><span class="glyphicon glyphicon-user"> {{ user.email }}</span> / <span class="glyphicon glyphicon-lock"> {{user.password}}</span></li>
-    {%- endfor %}
-  </ul>
 {% endblock %}

@@ -11,7 +11,7 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
-    name='PruebaServicioCucea',
+    name='BluemixFlask',
     version='1.0.0',
     description='App de prueba corriendo en Python apps en Bluemix',
     long_description=long_description,
