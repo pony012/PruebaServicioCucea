@@ -9,11 +9,11 @@ import json
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '123456789'
 
-app.config['PORT'] = int(os.getenv('VCAP_APP_PORT', 8080))
+app.config['PORT'] = int(os.getenv('VCAP_APP_PORT', 5000))
 
-app.config['HOST'] = '127.0.0.1' if app.config['PORT'] == 8080 else '0.0.0.0'
+app.config['HOST'] = '127.0.0.1' if "VCAP_APP_HOST" in os.environ else '0.0.0.0'
 
-app.config['DEBUG'] = True if app.config['PORT'] == 8080 else True
+app.config['DEBUG'] = True if "VCAP_APP_HOST" in os.environ else True
 
 # # MongoDB Config
 if 'VCAP_SERVICES' in os.environ:
