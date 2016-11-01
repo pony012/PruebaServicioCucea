@@ -1,16 +1,16 @@
 {
-  "name": "bluemix-flask",
-  "version": "0.0.1",
+  "name": "flask-mongo-nginx",
+  "version": "0.0.2",
   "description": "Example of Flask with MongoEngine and Flask-Security for authentification. For js dependencies we are going to use Bower",
   "main": "index.js",
-  "keywords": ["test","flask","bluemix","mongodb"],
+  "keywords": ["test","flask","bluemix","mongodb","docker"],
   "bugs": "https://github.com/pony012/PruebaServicioCucea/issues",
   "contributors": [
     "Alan <pony_alanandres@hotmail.com>"
   ],
   "repository": "https://github.com/pony012/PruebaServicioCucea.git",
   "scripts": {
-    "postinstall": "bower install"
+    "postinstall": "./node_modules/bower/bin/bower --allow-root install"
   },
   "author": "Alan <pony_alanandres@hotmail.com>",
   "license": "MIT",
