@@ -11,17 +11,13 @@ app = config.app
 # Create a user to test with
 @app.before_first_request
 def create_user():
-    print User
-    print str(app.config)
     if( User.objects.filter(email='matt@nobien.net').count() == 0 ):
         db.security.datastore.create_user(email='matt@nobien.net', password='password')
 
 # Views
 @app.route('/')
-@login_required
+#@login_required
 def home():
-    cantidadUsuarios = User.objects.filter(email='matt@nobien.net').count()
-    print str(app.config)
     return render_template('index.jinja2', param1 = str(app.config) )
 
 if __name__ == '__main__':
