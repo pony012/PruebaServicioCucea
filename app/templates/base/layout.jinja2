@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  {% include "base/head.jinja2" %}
+  <body>
+    {% include "base/menu.jinja2" %}
+    <div class="container">
+      {% if user and user.is_admin or True %}
+        {% include "base/sidebar.jinja2" %}
+      {% endif %}
+      {% block content %}
+      {% endblock %}
+    </div>
+    {% include "base/footer.jinja2" %}
+  </body>
+</html>

@@ -1,7 +1,10 @@
-{% extends "layout.jinja2" %}
+{% extends "base/layout.jinja2" %}
 {% block content %}
-  Hello from index
   <div class="well">
-    Hello world from Flask {{ param1 }}
+    {% if user and user.is_authenticated %}
+      Hola user
+    {% else %}
+      Hola extraño {#% <a href="{{ url_for(login_view) }}">Login</a> %#}
+    {% endif %}
   </div>
 {% endblock %}
