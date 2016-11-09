@@ -1,5 +1,6 @@
 import cf_deployment_tracker
-import argparse, os
+import argparse
+import os
 from app.app import app
 
 cf_deployment_tracker.track()
@@ -9,10 +10,30 @@ cf_deployment_tracker.track()
 
 parser = argparse.ArgumentParser()
 
-parser.add_argument("--debug", '-d', required=False, help="True if you want to debug your app", metavar='DEBUG', default='True')
-parser.add_argument("--host", '-H', required=False, help="The host where you want to run your app", metavar='HOST', default='127.0.0.1')
-parser.add_argument("--port", '-p', required=False, help="The port where you want to serve your app", metavar='PORT', default='5000')
-parser.add_argument("--threaded", '-t', required=False, help="Only in developer mode", metavar='THREADED', default='False')
+parser.add_argument("--debug",
+                    '-d',
+                    required=False,
+                    help="True if you want to debug your app",
+                    metavar='DEBUG',
+                    default='True')
+parser.add_argument("--host",
+                    '-H',
+                    required=False,
+                    help="The host where you want to run your app",
+                    metavar='HOST',
+                    default='127.0.0.1')
+parser.add_argument("--port",
+                    '-p',
+                    required=False,
+                    help="The port where you want to serve your app",
+                    metavar='PORT',
+                    default='5000')
+parser.add_argument("--threaded",
+                    '-t',
+                    required=False,
+                    help="Only in developer mode",
+                    metavar='THREADED',
+                    default='False')
 
 args = parser.parse_args()
 
@@ -36,5 +57,9 @@ if not ("VCAP_APP_HOST" in os.environ):
 #         elif opt in ("-o", "--ofile"):
 #             outputfile = arg
 
+
 if __name__ == "__main__":
-    app.run(debug = app.config["DEBUG"], host = app.config["HOST"], port = app.config["PORT"], threaded = app.config['THREADED'])
+    app.run(debug=app.config["DEBUG"],
+            host=app.config["HOST"],
+            port=app.config["PORT"],
+            threaded=app.config['THREADED'])
