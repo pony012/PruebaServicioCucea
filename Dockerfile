@@ -30,7 +30,7 @@ RUN apt-get install -y mongodb-org \
 #Install nginx
 RUN apt-get install -y nginx
 
-COPY mariadb_secure_install.sh ~/mariadb_secure_install.sh
+COPY mariadb_secure_install.sh /tmp/mariadb_secure_install.sh
 # Install mariadb
 RUN { \
     	echo mariadb-server-${MARIADB_MAJOR} mysql-server/root_password password "${MYSQLTMPROOT}"; \
@@ -48,7 +48,7 @@ RUN { \
     #&& echo -e "\n\n${MYSQLTMPROOT}\n${MYSQLTMPROOT}\n\n\nn\n\n " | mysql_secure_installation 2>/dev/null
     #&& mysql_secure_installation
 
-CMD ["~/mariadb_secure_install"]
+CMD ["/tmp/mariadb_secure_install"]
 
 RUN apt-get -y purge expect
 
