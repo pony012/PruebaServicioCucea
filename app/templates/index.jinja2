@@ -1,10 +1,10 @@
-{% extends "base/layout.jinja2" %}
+{% extends "layout.jinja2" %}
 {% block content %}
   <div class="well">
     {% if user and user.is_authenticated %}
       Hola user
     {% else %}
-      Hola extraño {#% <a href="{{ url_for(login_view) }}">Login</a> %#}
+      Hola extraño  <a href="{{ url_for_security('login') }}">Login</a>
     {% endif %}
   </div>
 {% endblock %}
