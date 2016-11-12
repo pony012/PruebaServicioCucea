@@ -19,7 +19,7 @@ RUN apt-get update && apt-get install -y software-properties-common \
 
 #Install dependencies
 RUN apt-get install -y \
-    python-pip python-dev uwsgi-plugin-python \
+    python-pip python-dev uwsgi-plugin-python python-mysqldb \
     supervisor nodejs-legacy git npm \
     && npm install -g bower
 
@@ -44,7 +44,8 @@ RUN { \
     && chown -R mysql:mysql /var/lib/mysql /var/run/mysqld \
     # ensure that /var/run/mysqld (used for socket and lock files) is writable regardless of the UID our mysqld instance ends up having at runtime
     && chmod 777 /var/run/mysqld \
-    && mysql_install_db
+    && mysql_install_db \
+    && apt-get install -y libmysqlclient-dev
     #&& echo -e "\n\n${MYSQLTMPROOT}\n${MYSQLTMPROOT}\n\n\nn\n\n " | mysql_secure_installation 2>/dev/null
     #&& mysql_secure_installation
 
@@ -68,6 +69,7 @@ RUN mkdir -p /var/log/nginx/app /var/log/uwsgi/app /var/log/supervisor \
 #Install flask, npm and bower dependencies
 RUN pip install --upgrade pip \
     && pip install -r /var/www/app/requirements.txt \
+    && easy_install MySQL-python \
     && cd /var/www/app \
     && npm install \
     && bower install --allow-root
