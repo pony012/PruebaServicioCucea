@@ -1,7 +1,11 @@
 # from flask import Flask
 from flask import render_template
+from flask_wtf import FlaskForm
+from wtforms import StringField, SubmitField
+from wtforms.validators import DataRequired
 # from flask_mongoengine import MongoEngine
 # from flask_security import login_required
+from flask_security.core import UserMixin, AnonymousUser
 import config
 import db
 from models.User import User
@@ -30,11 +34,26 @@ def create_user():
                                           password='password')
 
 
+class user_role_form(FlaskForm):
+    user = StringField(u'Usuario', validators=[DataRequired])
+    role = StringField(u'Rol', validators=[DataRequired])
+    submit = SubmitField(label="Ligar")
+
+
+@app.route('/user_role/<user>/<role>')
+def user_role(user, role):
+    form = user_role_form()
+    return render_template('user_role.jinja2', form=form, user=user, role=role)
+
+
 # Views
 @app.route('/')
 # @login_required
 def home():
-    return render_template('index.jinja2', param1=str(app.config))
+    user = UserMixin
+    if user.is_anonymous:
+        user = AnonymousUser
+    return render_template('index.jinja2', user=user)
 
 
 if __name__ == '__main__':

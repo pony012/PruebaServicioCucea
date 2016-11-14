@@ -12,10 +12,10 @@ RUN groupadd -r mysql && useradd -r -g mysql mysql
 #Add keys [mongodb and mariadb]
 RUN apt-get update && apt-get install -y software-properties-common \
     && apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927 \
-    && echo 'deb http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.2 multiverse' | tee /etc/apt/sources.list.d/mongodb-org-3.2.list \
-    && apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8 \
-    && add-apt-repository "deb [arch=amd64,i386,ppc64el] http://ftp.utexas.edu/mariadb/repo/$MARIADB_MAJOR/ubuntu xenial main" \
-    && apt-get update
+    && echo 'deb http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.2 multiverse' | tee /etc/apt/sources.list.d/mongodb-org-3.2.list
+    #&& apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8 \
+    #&& add-apt-repository "deb [arch=amd64,i386,ppc64el] http://ftp.utexas.edu/mariadb/repo/$MARIADB_MAJOR/ubuntu xenial main" \
+    #&& apt-get update
 
 #Install dependencies
 RUN apt-get install -y \

@@ -4,12 +4,12 @@
   <body>
     {% include "base/menu.jinja2" %}
     <div class="container-fluid">
-      {% if user and user.is_admin or True %}
+      {% if current_user and current_user.is_active %}
         <div class="col-sm-3 col-md-2 base-sidebar">
           {% include "base/sidebar.jinja2" %}
         </div>
       {% endif %}
-      <div class="col-xs-12 {% if user and user.is_admin or True %} col-sm-9 col-md-10 col-sm-offset-3 col-md-offset-2{% endif %}">
+      <div class="col-xs-12 {% if current_user and current_user.is_active %} col-sm-9 col-md-10 col-sm-offset-3 col-md-offset-2{% endif %}">
         {% block content %}
         {% endblock %}
       </div>
