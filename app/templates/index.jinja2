@@ -1,5 +1,5 @@
 {% extends "layout.jinja2" %}
-{% block content %}
+{% block page_content %}
   <div class="well">
     {% if (current_user and current_user.is_active): %}
       <p>{{current_user.roles}}</p>

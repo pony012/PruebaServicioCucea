@@ -16,7 +16,6 @@
     "tests"
   ],
   "dependencies": {
-    "bootstrap": "^3.3.7",
     "moment": "^2.15.1",
     "select2-bootstrap-theme": "^0.1.0-beta.9"
   }
