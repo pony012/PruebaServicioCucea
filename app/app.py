@@ -43,7 +43,7 @@ class user_role_form(FlaskForm):
 @app.route('/user_role/<user>/<role>')
 def user_role(user, role):
     form = user_role_form()
-    return render_template('user_role.jinja2', form=form, user=user, role=role)
+    return render_template('user_role.html', form=form, user=user, role=role)
 
 
 # Views
@@ -53,7 +53,7 @@ def home():
     user = UserMixin
     if user.is_anonymous:
         user = AnonymousUser
-    return render_template('index.jinja2', user=user)
+    return render_template('index.html', user=user)
 
 
 if __name__ == '__main__':
