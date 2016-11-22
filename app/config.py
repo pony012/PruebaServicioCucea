@@ -1,8 +1,6 @@
 import os
 from flask import Flask
 from flask_mongoengine import MongoEngine
-from flask_security import Security, MongoEngineUserDatastore, \
-     login_required
 from flask_sqlalchemy import SQLAlchemy
 import json
 from flask_bootstrap import Bootstrap

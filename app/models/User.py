@@ -4,6 +4,7 @@ from app.models.Role import Role
 
 db = config.db
 
+
 class User(db.Document, UserMixin):
     email = db.StringField(max_length=255)
     password = db.StringField(max_length=255)
