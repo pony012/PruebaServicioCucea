@@ -46,6 +46,9 @@ def user_role(user, role):
     return render_template('user_role.jinja2', form=form, user=user, role=role)
 
 
+# app.add_url_rule('/user_role/<user>/<role>', view_func=user_role)
+
+
 # Views
 @app.route('/')
 # @login_required
