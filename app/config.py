@@ -1,13 +1,13 @@
 import os
 from flask import Flask
 from flask_mongoengine import MongoEngine
-from flask_security import Security, MongoEngineUserDatastore, \
-     login_required
 from flask_sqlalchemy import SQLAlchemy
 import json
+from flask_bootstrap import Bootstrap
 #
 # Create app
 app = Flask(__name__)
+Bootstrap(app)
 app.config['SECRET_KEY'] = '123456789'
 
 app.config['PORT'] = int(os.getenv('VCAP_APP_PORT', 5000))

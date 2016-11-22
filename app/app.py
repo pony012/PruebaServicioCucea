@@ -1,37 +1,61 @@
 # from flask import Flask
-from flask import render_template
+from flask import render_template, redirect, url_for, flash
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
-from wtforms.validators import DataRequired
+from wtforms import StringField, PasswordField, SubmitField, BooleanField
+from wtforms.validators import Required, Length, EqualTo, DataRequired
 # from flask_mongoengine import MongoEngine
-# from flask_security import login_required
+from flask_security import current_user, login_user
 from flask_security.core import UserMixin, AnonymousUser
 import config
-import db
-from models.User import User
+from db import user_datastore
+# from models.User import User
 # from models.Role import Role
+from models.Usuario import Usuario
 
 app = config.app
 db_sql = config.db_sql
 
 
-class Registro(db_sql.Model):
-    id = db_sql.Column(db_sql.Integer, primary_key=True)
-    user = db_sql.Column(db_sql.Integer, unique=False)
-
-    def __init__(self, user):
-        self.user = user
-
-    def __repr__(self):
-        return '<Registro %r | %r>' % self.id, self.user
-
-
 # Create a user to test with
 @app.before_first_request
 def create_user():
-    if(User.objects.filter(email='matt@nobien.net').count() == 0):
-        db.security.datastore.create_user(email='matt@nobien.net',
-                                          password='password')
+    db_sql.drop_all()
+    db_sql.create_all()
+    user_datastore.create_user(email='alan', password='password')
+    user_datastore.commit()
+    # if(User.objects.filter(email='matt@nobien.net').count() == 0):
+    #     db.security.datastore.create_user(email='matt@nobien.net',
+    #                                       password='password')
+
+
+class LoginForm2(FlaskForm):
+    email = StringField('Correo', validators=[Required(), Length(1, 64)])
+    password = PasswordField('Password', validators=[Required()])
+    remember_me = BooleanField('Recordar', validators=[Required()])
+    submit = SubmitField('Login')
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    """User login route."""
+    if current_user.is_authenticated():
+        # if user is logged in we get out of here
+        return redirect(url_for('index'))
+    form = LoginForm2()
+    if form.validate_on_submit():
+        user = Usuario.query.filter_by(username=form.email.data).first()
+        if user is None or not user.verify_password(form.password.data) or \
+                not user.verify_totp(form.token.data):
+            flash('Invalid username, password or token.')
+            return redirect(url_for('login'))
+
+        # log user in
+        login_user(user)
+        flash('You are now logged in!')
+        return redirect(url_for('index'))
+    print form
+    print "Form"
+    return render_template('login_user.html', form2=form)
 
 
 class user_role_form(FlaskForm):
@@ -43,7 +67,7 @@ class user_role_form(FlaskForm):
 @app.route('/user_role/<user>/<role>')
 def user_role(user, role):
     form = user_role_form()
-    return render_template('user_role.jinja2', form=form, user=user, role=role)
+    return render_template('user_role.html', form=form, user=user, role=role)
 
 
 # app.add_url_rule('/user_role/<user>/<role>', view_func=user_role)
@@ -56,7 +80,7 @@ def home():
     user = UserMixin
     if user.is_anonymous:
         user = AnonymousUser
-    return render_template('index.jinja2', user=user)
+    return render_template('index.html', user=user)
 
 
 if __name__ == '__main__':
